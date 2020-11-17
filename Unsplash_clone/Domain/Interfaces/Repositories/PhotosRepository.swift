@@ -1,5 +1,5 @@
 //
-//  SearchPhotosUseCase.swift
+//  PhotosRepository.swift
 //  Unsplash_clone
 //
 //  Created by 신정섭 on 2020/11/17.
@@ -8,6 +8,7 @@
 
 import Foundation
 
-protocol SearchPhotosUseCase {
-    func search()
+protocol PhotosRepository {
+    func fetchPhotos(page: Int)
+    func searchPhotos(query: String, page: Int)
 }

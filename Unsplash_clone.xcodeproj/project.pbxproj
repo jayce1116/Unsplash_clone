@@ -17,6 +17,9 @@
 		A6BA6C102563DE8D009C16D7 /* Unsplash_cloneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BA6C0F2563DE8D009C16D7 /* Unsplash_cloneUITests.swift */; };
 		A6BA6C202563E2B0009C16D7 /* SearchPhotosUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BA6C1F2563E2B0009C16D7 /* SearchPhotosUseCase.swift */; };
 		A6BA6C232563E3A9009C16D7 /* SearchPhotosUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BA6C222563E3A9009C16D7 /* SearchPhotosUseCaseTests.swift */; };
+		A6BA6C2725640CCD009C16D7 /* FetchPhotosUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BA6C2625640CCD009C16D7 /* FetchPhotosUseCase.swift */; };
+		A6BA6C2B25640E21009C16D7 /* PhotosRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BA6C2A25640E21009C16D7 /* PhotosRepository.swift */; };
+		A6BA6C2D25640F5D009C16D7 /* FetchPhotosUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BA6C2C25640F5D009C16D7 /* FetchPhotosUseCaseTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,9 @@
 		A6BA6C112563DE8D009C16D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A6BA6C1F2563E2B0009C16D7 /* SearchPhotosUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotosUseCase.swift; sourceTree = "<group>"; };
 		A6BA6C222563E3A9009C16D7 /* SearchPhotosUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotosUseCaseTests.swift; sourceTree = "<group>"; };
+		A6BA6C2625640CCD009C16D7 /* FetchPhotosUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPhotosUseCase.swift; sourceTree = "<group>"; };
+		A6BA6C2A25640E21009C16D7 /* PhotosRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosRepository.swift; sourceTree = "<group>"; };
+		A6BA6C2C25640F5D009C16D7 /* FetchPhotosUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPhotosUseCaseTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,25 +143,44 @@
 		A6BA6C1D2563E175009C16D7 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				A6BA6C1E2563E192009C16D7 /* UseCase */,
+				A6BA6C1E2563E192009C16D7 /* UseCases */,
+				A6BA6C2825640DBD009C16D7 /* Interfaces */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
 		};
-		A6BA6C1E2563E192009C16D7 /* UseCase */ = {
+		A6BA6C1E2563E192009C16D7 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
 				A6BA6C1F2563E2B0009C16D7 /* SearchPhotosUseCase.swift */,
+				A6BA6C2625640CCD009C16D7 /* FetchPhotosUseCase.swift */,
 			);
-			path = UseCase;
+			path = UseCases;
 			sourceTree = "<group>";
 		};
 		A6BA6C212563E38C009C16D7 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
 				A6BA6C222563E3A9009C16D7 /* SearchPhotosUseCaseTests.swift */,
+				A6BA6C2C25640F5D009C16D7 /* FetchPhotosUseCaseTests.swift */,
 			);
 			path = UseCase;
+			sourceTree = "<group>";
+		};
+		A6BA6C2825640DBD009C16D7 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				A6BA6C2925640DFF009C16D7 /* Repositories */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		A6BA6C2925640DFF009C16D7 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				A6BA6C2A25640E21009C16D7 /* PhotosRepository.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,6 +315,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6BA6C202563E2B0009C16D7 /* SearchPhotosUseCase.swift in Sources */,
+				A6BA6C2725640CCD009C16D7 /* FetchPhotosUseCase.swift in Sources */,
+				A6BA6C2B25640E21009C16D7 /* PhotosRepository.swift in Sources */,
 				A6BA6BF22563DE8A009C16D7 /* ViewController.swift in Sources */,
 				A6BA6BEE2563DE8A009C16D7 /* AppDelegate.swift in Sources */,
 				A6BA6BF02563DE8A009C16D7 /* SceneDelegate.swift in Sources */,
@@ -301,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6BA6C232563E3A9009C16D7 /* SearchPhotosUseCaseTests.swift in Sources */,
+				A6BA6C2D25640F5D009C16D7 /* FetchPhotosUseCaseTests.swift in Sources */,
 				A6BA6C052563DE8D009C16D7 /* Unsplash_cloneTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
