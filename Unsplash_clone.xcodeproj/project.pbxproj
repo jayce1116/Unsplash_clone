@@ -15,6 +15,8 @@
 		A6BA6BFA2563DE8D009C16D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6BA6BF82563DE8D009C16D7 /* LaunchScreen.storyboard */; };
 		A6BA6C052563DE8D009C16D7 /* Unsplash_cloneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BA6C042563DE8D009C16D7 /* Unsplash_cloneTests.swift */; };
 		A6BA6C102563DE8D009C16D7 /* Unsplash_cloneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BA6C0F2563DE8D009C16D7 /* Unsplash_cloneUITests.swift */; };
+		A6BA6C202563E2B0009C16D7 /* SearchPhotosUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BA6C1F2563E2B0009C16D7 /* SearchPhotosUseCase.swift */; };
+		A6BA6C232563E3A9009C16D7 /* SearchPhotosUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BA6C222563E3A9009C16D7 /* SearchPhotosUseCaseTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		A6BA6C0B2563DE8D009C16D7 /* Unsplash_cloneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Unsplash_cloneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6BA6C0F2563DE8D009C16D7 /* Unsplash_cloneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unsplash_cloneUITests.swift; sourceTree = "<group>"; };
 		A6BA6C112563DE8D009C16D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A6BA6C1F2563E2B0009C16D7 /* SearchPhotosUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotosUseCase.swift; sourceTree = "<group>"; };
+		A6BA6C222563E3A9009C16D7 /* SearchPhotosUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotosUseCaseTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,7 @@
 		A6BA6BEC2563DE8A009C16D7 /* Unsplash_clone */ = {
 			isa = PBXGroup;
 			children = (
+				A6BA6C1D2563E175009C16D7 /* Domain */,
 				A6BA6BED2563DE8A009C16D7 /* AppDelegate.swift */,
 				A6BA6BEF2563DE8A009C16D7 /* SceneDelegate.swift */,
 				A6BA6BF12563DE8A009C16D7 /* ViewController.swift */,
@@ -113,6 +118,7 @@
 		A6BA6C032563DE8D009C16D7 /* Unsplash_cloneTests */ = {
 			isa = PBXGroup;
 			children = (
+				A6BA6C212563E38C009C16D7 /* UseCase */,
 				A6BA6C042563DE8D009C16D7 /* Unsplash_cloneTests.swift */,
 				A6BA6C062563DE8D009C16D7 /* Info.plist */,
 			);
@@ -126,6 +132,30 @@
 				A6BA6C112563DE8D009C16D7 /* Info.plist */,
 			);
 			path = Unsplash_cloneUITests;
+			sourceTree = "<group>";
+		};
+		A6BA6C1D2563E175009C16D7 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				A6BA6C1E2563E192009C16D7 /* UseCase */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		A6BA6C1E2563E192009C16D7 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				A6BA6C1F2563E2B0009C16D7 /* SearchPhotosUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		A6BA6C212563E38C009C16D7 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				A6BA6C222563E3A9009C16D7 /* SearchPhotosUseCaseTests.swift */,
+			);
+			path = UseCase;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6BA6C202563E2B0009C16D7 /* SearchPhotosUseCase.swift in Sources */,
 				A6BA6BF22563DE8A009C16D7 /* ViewController.swift in Sources */,
 				A6BA6BEE2563DE8A009C16D7 /* AppDelegate.swift in Sources */,
 				A6BA6BF02563DE8A009C16D7 /* SceneDelegate.swift in Sources */,
@@ -269,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6BA6C232563E3A9009C16D7 /* SearchPhotosUseCaseTests.swift in Sources */,
 				A6BA6C052563DE8D009C16D7 /* Unsplash_cloneTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
