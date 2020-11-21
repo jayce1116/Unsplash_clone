@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SearchView {
-    func setPhotos()
+    func reloadTableView()
 }
 
 class SearchViewController: UIViewController, SearchView {
@@ -23,9 +23,6 @@ class SearchViewController: UIViewController, SearchView {
         controller.delegate = self
         return controller
     }()
-    
-    // TODO : Moved to presenter
-    var photoItems: [PhotoModel] = []
     
     var presenter: SearchPresenter!
     
@@ -55,7 +52,7 @@ class SearchViewController: UIViewController, SearchView {
         photosTableView.tableHeaderView = searchController.searchBar
     }
     
-    func setPhotos() {
+    func reloadTableView() {
         photosTableView.reloadData()
     }
     
@@ -64,7 +61,7 @@ class SearchViewController: UIViewController, SearchView {
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return photoItems.count
+        return presenter.photoList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -73,7 +70,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let photo = photoItems[indexPath.item]
+        let photo = presenter.photoList[indexPath.item]
         let width = tableView.frame.width
         return width * CGFloat(photo.height) / CGFloat(photo.width)
     }

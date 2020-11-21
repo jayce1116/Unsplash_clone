@@ -9,6 +9,7 @@
 import Foundation
 
 protocol SearchPresenter {
+    var photoList: [PhotoModel] { get }
     func attachView(view: SearchView)
     func detachView()
     func fetchPhotos()
@@ -20,6 +21,8 @@ class DefaultSearchPresenter: SearchPresenter {
     private var view: SearchView?
     private let fetchPhotosUseCase: FetchPhotosUseCase
     private let searchPhotosUseCase: SearchPhotosUseCase
+    
+    var photoList: [PhotoModel] = []
     
     init(fetchPhotosUseCase: FetchPhotosUseCase,
          searchPhotosUseCase: SearchPhotosUseCase) {
@@ -36,13 +39,16 @@ class DefaultSearchPresenter: SearchPresenter {
     }
     
     func fetchPhotos() {
-        // TODO : Set page
-        self.fetchPhotosUseCase.fetchPhotos(page: 1)
+        self.fetchPhotosUseCase.fetchPhotos(page: 1) {[weak self] photos in
+            self?.photoList = photos
+            self?.view?.reloadTableView()
+        }
     }
     
     func searchPhotos() {
-        // TODO : Set query, page
-        self.searchPhotosUseCase.search(query: "", page: 1)
+        self.searchPhotosUseCase.search(query: "", page: 1) {[weak self] photos in
+            self?.photoList = photos
+            self?.view?.reloadTableView()
+        }
     }
-    
 }

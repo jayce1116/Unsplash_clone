@@ -9,7 +9,7 @@
 import Foundation
 
 protocol SearchPhotosUseCase {
-    func search(query: String, page: Int)
+    func search(query: String, page: Int, completion: @escaping ([PhotoModel]) -> Void)
 }
 
 class DefaultSearchPhotosUseCase: SearchPhotosUseCase {
@@ -20,7 +20,7 @@ class DefaultSearchPhotosUseCase: SearchPhotosUseCase {
         self.photosRepository = photosRepository
     }
     
-    func search(query: String, page: Int) {
+    func search(query: String, page: Int, completion: @escaping ([PhotoModel]) -> Void) {
         self.photosRepository.searchPhotos(query: query, page: page)
     }
     

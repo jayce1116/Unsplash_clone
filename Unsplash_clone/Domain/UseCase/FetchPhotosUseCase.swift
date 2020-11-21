@@ -9,7 +9,7 @@
 import Foundation
 
 protocol FetchPhotosUseCase {
-    func fetchPhotos(page: Int)
+    func fetchPhotos(page: Int, completion: @escaping ([PhotoModel]) -> Void)
 }
 
 class DefaultFetchPhotosUseCase: FetchPhotosUseCase {
@@ -20,7 +20,7 @@ class DefaultFetchPhotosUseCase: FetchPhotosUseCase {
         self.photosRepository = photosRepository
     }
     
-    func fetchPhotos(page: Int) {
+    func fetchPhotos(page: Int, completion: @escaping ([PhotoModel]) -> Void) {
         self.photosRepository.fetchPhotos(page: page)
     }
     
