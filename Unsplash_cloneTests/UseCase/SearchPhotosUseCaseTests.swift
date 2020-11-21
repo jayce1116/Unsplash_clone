@@ -11,17 +11,32 @@ import XCTest
 
 class SearchPhotosUseCaseTests: XCTestCase {
 
+    var mock: MockPhotosRepository!
     var searchPhotosUseCase: SearchPhotosUseCase!
     
     override func setUpWithError() throws {
+        mock = MockPhotosRepository()
+        searchPhotosUseCase = DefaultSearchPhotosUseCase(photosRepository: mock)
     }
 
     override func tearDownWithError() throws {
         searchPhotosUseCase = nil
     }
 
-    func test_searchWithEmptyKeyword() {
+    func test_search_EmptyKeyword() {
+        // given
+        let keyword = ""
+        let page = 1
+        mock.setPhoto(photos: [])
         
+        // when
+        var result: [PhotoModel]!
+        searchPhotosUseCase.search(query: keyword, page: page) { photos in
+            result = photos
+        }
+    
+        XCTAssertEqual(mock.searchPhotosCallsCount, 1)
+        XCTAssertEqual(result.count, 0)
     }
     
 }
