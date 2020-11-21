@@ -24,6 +24,9 @@ class SearchViewController: UIViewController, SearchView {
         return controller
     }()
     
+    // TODO : Moved to presenter
+    var photoItems: [PhotoModel] = []
+    
     var presenter: SearchPresenter!
     
     override func viewDidLoad() {
@@ -61,13 +64,18 @@ class SearchViewController: UIViewController, SearchView {
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return photoItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PhotosTableViewCell.self), for: indexPath) as? PhotosTableViewCell else { return UITableViewCell() }
-        cell.setPhotoItem(item: PhotoModel(name: "test"))
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let photo = photoItems[indexPath.item]
+        let width = tableView.frame.width
+        return width * CGFloat(photo.height) / CGFloat(photo.width)
     }
     
 }

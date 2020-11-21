@@ -9,5 +9,7 @@
 import Foundation
 
 struct PhotoModel: Equatable {
-    let name: String
+    let width: Int
+    let height: Int
+    let image: String
 }
