@@ -17,6 +17,7 @@
 		1A7FB16B256970EA000B9F11 /* PhotoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7FB16A256970EA000B9F11 /* PhotoDTO.swift */; };
 		1A7FB17125697CCA000B9F11 /* SearchPhotosResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7FB17025697CCA000B9F11 /* SearchPhotosResponseDTO+Mapping.swift */; };
 		1A7FB17325697E8E000B9F11 /* MockPhotosRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7FB17225697E8E000B9F11 /* MockPhotosRepository.swift */; };
+		1A7FB178256988EA000B9F11 /* SearchPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7FB177256988EA000B9F11 /* SearchPresenterTests.swift */; };
 		A6BA6BEE2563DE8A009C16D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BA6BED2563DE8A009C16D7 /* AppDelegate.swift */; };
 		A6BA6BF02563DE8A009C16D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BA6BEF2563DE8A009C16D7 /* SceneDelegate.swift */; };
 		A6BA6BF52563DE8A009C16D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6BA6BF32563DE8A009C16D7 /* Main.storyboard */; };
@@ -58,6 +59,7 @@
 		1A7FB16A256970EA000B9F11 /* PhotoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDTO.swift; sourceTree = SOURCE_ROOT; };
 		1A7FB17025697CCA000B9F11 /* SearchPhotosResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchPhotosResponseDTO+Mapping.swift"; sourceTree = SOURCE_ROOT; };
 		1A7FB17225697E8E000B9F11 /* MockPhotosRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPhotosRepository.swift; sourceTree = "<group>"; };
+		1A7FB177256988EA000B9F11 /* SearchPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenterTests.swift; sourceTree = "<group>"; };
 		A6BA6BEA2563DE8A009C16D7 /* Unsplash_clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unsplash_clone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6BA6BED2563DE8A009C16D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A6BA6BEF2563DE8A009C16D7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +158,14 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		1A7FB17425698895000B9F11 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				1A7FB177256988EA000B9F11 /* SearchPresenterTests.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		1A8D868A25675662006218B3 /* Photo */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				A6BA6C212563E38C009C16D7 /* UseCase */,
+				1A7FB17425698895000B9F11 /* Presenter */,
 				A6BA6C062563DE8D009C16D7 /* Info.plist */,
 			);
 			path = Unsplash_cloneTests;
@@ -416,6 +427,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A7FB178256988EA000B9F11 /* SearchPresenterTests.swift in Sources */,
 				A6BA6C232563E3A9009C16D7 /* SearchPhotosUseCaseTests.swift in Sources */,
 				A6BA6C2D25640F5D009C16D7 /* FetchPhotosUseCaseTests.swift in Sources */,
 			);
