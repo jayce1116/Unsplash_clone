@@ -21,7 +21,9 @@ class DefaultSearchPhotosUseCase: SearchPhotosUseCase {
     }
     
     func search(query: String, page: Int, completion: @escaping ([PhotoModel]) -> Void) {
-        self.photosRepository.searchPhotos(query: query, page: page)
+        self.photosRepository.searchPhotos(query: query, page: page) { photos in
+            completion(photos)
+        }
     }
     
 }

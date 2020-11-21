@@ -9,6 +9,6 @@
 import Foundation
 
 protocol PhotosRepository {
-    func fetchPhotos(page: Int)
-    func searchPhotos(query: String, page: Int)
+    func fetchPhotos(page: Int, completion: @escaping ([PhotoModel]) -> Void)
+    func searchPhotos(query: String, page: Int, completion: @escaping ([PhotoModel]) -> Void)
 }

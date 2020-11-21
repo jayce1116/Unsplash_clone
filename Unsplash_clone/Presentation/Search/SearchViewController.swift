@@ -53,7 +53,9 @@ class SearchViewController: UIViewController, SearchView {
     }
     
     func reloadTableView() {
-        photosTableView.reloadData()
+        DispatchQueue.main.async {[weak self] in
+            self?.photosTableView.reloadData()
+        }
     }
     
 }
@@ -66,6 +68,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PhotosTableViewCell.self), for: indexPath) as? PhotosTableViewCell else { return UITableViewCell() }
+        cell.setPhotoItem(item: presenter.photoList[indexPath.item])
         return cell
     }
     
@@ -73,6 +76,10 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         let photo = presenter.photoList[indexPath.item]
         let width = tableView.frame.width
         return width * CGFloat(photo.height) / CGFloat(photo.width)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
     }
     
 }
@@ -85,8 +92,8 @@ extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate, UI
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let searchKeyword = self.searchController.searchBar.text {
-            print("Search keyword : \(searchKeyword)")
-            presenter.searchPhotos()
+            print(searchKeyword)
+            presenter.searchPhotos(keyword: searchKeyword)
         }
     }
     

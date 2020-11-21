@@ -39,7 +39,16 @@ class PhotosTableViewCell: UITableViewCell {
     }
     
     func setPhotoItem(item: PhotoModel) {
-        // TODO : Show photo
+        DispatchQueue.main.async {[weak self] in
+            if let url = URL.init(string: item.image) {
+                do {
+                    let data = try Data(contentsOf: url)
+                    self?.photoImageView.image = UIImage(data: data)
+                } catch {
+                    self?.photoImageView.image = nil
+                }
+            }
+        }
     }
 }
 

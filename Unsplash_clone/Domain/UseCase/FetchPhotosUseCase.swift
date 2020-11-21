@@ -21,7 +21,9 @@ class DefaultFetchPhotosUseCase: FetchPhotosUseCase {
     }
     
     func fetchPhotos(page: Int, completion: @escaping ([PhotoModel]) -> Void) {
-        self.photosRepository.fetchPhotos(page: page)
+        self.photosRepository.fetchPhotos(page: page) { photos in
+            completion(photos)
+        }
     }
     
 }

@@ -13,7 +13,7 @@ protocol SearchPresenter {
     func attachView(view: SearchView)
     func detachView()
     func fetchPhotos()
-    func searchPhotos()
+    func searchPhotos(keyword: String)
 }
 
 class DefaultSearchPresenter: SearchPresenter {
@@ -45,8 +45,8 @@ class DefaultSearchPresenter: SearchPresenter {
         }
     }
     
-    func searchPhotos() {
-        self.searchPhotosUseCase.search(query: "", page: 1) {[weak self] photos in
+    func searchPhotos(keyword: String) {
+        self.searchPhotosUseCase.search(query: keyword, page: 1) {[weak self] photos in
             self?.photoList = photos
             self?.view?.reloadTableView()
         }
