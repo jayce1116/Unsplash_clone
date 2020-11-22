@@ -32,7 +32,7 @@ class FetchPhotosUseCaseTests: XCTestCase {
         
         // when
         var result: [PhotoModel]!
-        fetchPhotosUseCase.fetchPhotos(page: 1) { photos in
+        fetchPhotosUseCase.fetchPhotos() { photos in
             result = photos
         }
         

@@ -26,12 +26,11 @@ class SearchPhotosUseCaseTests: XCTestCase {
     func test_search_EmptyKeyword() {
         // given
         let keyword = ""
-        let page = 1
         mock.setPhoto(photos: [])
         
         // when
         var result: [PhotoModel]!
-        searchPhotosUseCase.search(query: keyword, page: page) { photos in
+        searchPhotosUseCase.search(query: keyword) { photos in
             result = photos
         }
     
