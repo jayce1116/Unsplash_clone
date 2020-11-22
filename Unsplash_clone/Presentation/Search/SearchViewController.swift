@@ -18,6 +18,7 @@ class SearchViewController: UIViewController, SearchView {
     
     private lazy var searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: nil)
+        controller.obscuresBackgroundDuringPresentation = false
         controller.searchBar.delegate = self
         controller.searchResultsUpdater = self
         controller.delegate = self
@@ -79,7 +80,20 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
+        photosTableView.scrollToRow(at: indexPath, at: .middle, animated: false)
+        
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: String(describing: PhotoPageViewController.self)) as? PhotoPageViewController {
+            vc.photoList = presenter.photoList
+            vc.index = indexPath.item
+            vc.pageViewDelegate = self
+            self.present(vc, animated: false)
+        }
+    }
+}
+
+extension SearchViewController: PhotoPageViewControllerDelegate {
+    func didMovied(indexPath: IndexPath) {
+        photosTableView.scrollToRow(at: indexPath, at: .middle, animated: false)
     }
     
 }
@@ -87,13 +101,13 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate, UISearchControllerDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
-        // TODO
+        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let searchKeyword = self.searchController.searchBar.text {
-            print(searchKeyword)
             presenter.searchPhotos(keyword: searchKeyword)
+    
         }
     }
     

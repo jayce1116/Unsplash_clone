@@ -8,14 +8,29 @@
 
 import UIKit
 
+protocol PhotoPageViewControllerDelegate: class {
+    func didMovied(indexPath: IndexPath)
+}
+
 class PhotoPageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
 
     var list: [UIViewController] = []
+    var index: Int = 0
+    var photoList: [PhotoModel] = []
+    weak var pageViewDelegate: PhotoPageViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
         self.dataSource = self
+        
+        list = photoList.enumerated()
+            .map { index, model -> UIViewController in
+                let vc = photoViewController(model: model)
+                vc.pageIndex = index
+                return vc
+        }
+        self.setViewControllers([list[index]], direction: .forward, animated: false)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -46,12 +61,21 @@ class PhotoPageViewController: UIPageViewController, UIPageViewControllerDelegat
         guard nextIndex < list.count else {
             return nil
         }
-        
+
         return list[nextIndex]
     }
     
-    private func photoViewController(image: UIImage) -> PhotoViewController {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if completed {
+            if let currentVC = pageViewController.viewControllers?[0] as? PhotoViewController {
+                pageViewDelegate?.didMovied(indexPath: IndexPath(row: currentVC.pageIndex, section: 0))
+            }
+        }
+    }
+    
+    private func photoViewController(model: PhotoModel) -> PhotoViewController {
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: String(describing: PhotoViewController.self)) as? PhotoViewController else { return PhotoViewController() }
+        vc.model = model
         return vc
     }
 }
