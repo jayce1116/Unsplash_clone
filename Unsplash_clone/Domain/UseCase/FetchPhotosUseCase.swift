@@ -9,18 +9,29 @@
 import Foundation
 
 protocol FetchPhotosUseCase {
-    func fetchPhotos(page: Int, completion: @escaping ([PhotoModel]) -> Void)
+    func fetchPhotos(completion: @escaping ([PhotoModel]) -> Void)
+    func fetchPhotosNextPage(completion: @escaping ([PhotoModel]) -> Void)
 }
 
 class DefaultFetchPhotosUseCase: FetchPhotosUseCase {
     
     private let photosRepository: PhotosRepository
     
+    private var page = 1
+    
     init(photosRepository: PhotosRepository) {
         self.photosRepository = photosRepository
     }
     
-    func fetchPhotos(page: Int, completion: @escaping ([PhotoModel]) -> Void) {
+    func fetchPhotos(completion: @escaping ([PhotoModel]) -> Void) {
+        self.page = 1
+        self.photosRepository.fetchPhotos(page: page) { photos in
+            completion(photos)
+        }
+    }
+    
+    func fetchPhotosNextPage(completion: @escaping ([PhotoModel]) -> Void) {
+        self.page += 1
         self.photosRepository.fetchPhotos(page: page) { photos in
             completion(photos)
         }

@@ -16,21 +16,23 @@ class PhotoPageViewController: UIPageViewController, UIPageViewControllerDelegat
 
     var list: [UIViewController] = []
     var index: Int = 0
-    var photoList: [PhotoModel] = []
+    var photoList: [PhotoModel] = [] {
+        didSet {
+            list = photoList.enumerated()
+                .map { index, model -> UIViewController in
+                    let vc = photoViewController(model: model)
+                    vc.pageIndex = index
+                    return vc
+            }
+            self.setViewControllers([list[index]], direction: .forward, animated: false)
+        }
+    }
     weak var pageViewDelegate: PhotoPageViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
         self.dataSource = self
-        
-        list = photoList.enumerated()
-            .map { index, model -> UIViewController in
-                let vc = photoViewController(model: model)
-                vc.pageIndex = index
-                return vc
-        }
-        self.setViewControllers([list[index]], direction: .forward, animated: false)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -68,6 +70,7 @@ class PhotoPageViewController: UIPageViewController, UIPageViewControllerDelegat
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed {
             if let currentVC = pageViewController.viewControllers?[0] as? PhotoViewController {
+                index = currentVC.pageIndex
                 pageViewDelegate?.didMovied(indexPath: IndexPath(row: currentVC.pageIndex, section: 0))
             }
         }

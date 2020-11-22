@@ -27,7 +27,11 @@ class UnsplashRepository: PhotosRepository {
     }()
     
     func fetchPhotos(page: Int, completion: @escaping ([PhotoModel]) -> Void) {
-        if let url = URL.init(string: "\(baseUrl)/photos") {
+        var urlComponents = URLComponents(string: "\(baseUrl)/photos")
+        urlComponents?.queryItems = [
+            URLQueryItem(name: "page", value: String(describing: page))
+        ]
+        if let url = urlComponents?.url {
             var urlRequest = URLRequest(url: url)
             urlRequest.allHTTPHeaderFields = httpHeader
             urlRequest.httpMethod = HttpMethod.get.rawValue

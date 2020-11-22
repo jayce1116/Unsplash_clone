@@ -18,11 +18,16 @@ class SearchViewController: UIViewController, SearchView {
     
     private lazy var searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: nil)
-        controller.obscuresBackgroundDuringPresentation = false
         controller.searchBar.delegate = self
         controller.searchResultsUpdater = self
         controller.delegate = self
         return controller
+    }()
+    
+    private lazy var pageViewController: PhotoPageViewController = {
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: String(describing: PhotoPageViewController.self)) as? PhotoPageViewController else { return PhotoPageViewController()}
+        vc.pageViewDelegate = self
+        return vc
     }()
     
     var presenter: SearchPresenter!
@@ -55,7 +60,10 @@ class SearchViewController: UIViewController, SearchView {
     
     func reloadTableView() {
         DispatchQueue.main.async {[weak self] in
-            self?.photosTableView.reloadData()
+            if let self = self {
+                self.pageViewController.photoList = self.presenter.photoList
+                self.photosTableView.reloadData()
+            }
         }
     }
     
@@ -64,30 +72,46 @@ class SearchViewController: UIViewController, SearchView {
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.photoList.count
+        switch section {
+        case 0:
+            return presenter.photoList.count
+        default:
+            return presenter.canMoreLoadPhotos ? 1 : 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PhotosTableViewCell.self), for: indexPath) as? PhotosTableViewCell else { return UITableViewCell() }
-        cell.setPhotoItem(item: presenter.photoList[indexPath.item])
-        return cell
+        switch indexPath.section {
+            case 0:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PhotosTableViewCell.self), for: indexPath) as? PhotosTableViewCell else { return UITableViewCell() }
+                cell.setPhotoItem(item: presenter.photoList[indexPath.item])
+                return cell
+            default:
+                presenter.searchNextPage()
+                return UITableViewCell()
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let photo = presenter.photoList[indexPath.item]
-        let width = tableView.frame.width
-        return width * CGFloat(photo.height) / CGFloat(photo.width)
+        switch indexPath.section {
+            case 0:
+                let photo = presenter.photoList[indexPath.item]
+                let width = tableView.frame.width
+                return width * CGFloat(photo.height) / CGFloat(photo.width)
+            default:
+                return 1
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         photosTableView.scrollToRow(at: indexPath, at: .middle, animated: false)
-        
-        if let vc = self.storyboard?.instantiateViewController(withIdentifier: String(describing: PhotoPageViewController.self)) as? PhotoPageViewController {
-            vc.photoList = presenter.photoList
-            vc.index = indexPath.item
-            vc.pageViewDelegate = self
-            self.present(vc, animated: false)
-        }
+        pageViewController.index = indexPath.item
+        self.present(pageViewController, animated: false)
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return presenter.canMoreLoadPhotos ? 2 : 1
     }
 }
 
@@ -107,7 +131,7 @@ extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate, UI
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let searchKeyword = self.searchController.searchBar.text {
             presenter.searchPhotos(keyword: searchKeyword)
-    
+            searchController.isActive = false
         }
     }
     

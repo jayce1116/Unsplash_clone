@@ -10,10 +10,12 @@ import Foundation
 
 protocol SearchPresenter {
     var photoList: [PhotoModel] { get }
+    var canMoreLoadPhotos: Bool { get }
     func attachView(view: SearchView)
     func detachView()
     func fetchPhotos()
     func searchPhotos(keyword: String)
+    func searchNextPage()
 }
 
 class DefaultSearchPresenter: SearchPresenter {
@@ -23,6 +25,9 @@ class DefaultSearchPresenter: SearchPresenter {
     private let searchPhotosUseCase: SearchPhotosUseCase
     
     var photoList: [PhotoModel] = []
+    private var isSearchMode = false
+    private var isLoading = false
+    var canMoreLoadPhotos = true
     
     init(fetchPhotosUseCase: FetchPhotosUseCase,
          searchPhotosUseCase: SearchPhotosUseCase) {
@@ -39,16 +44,46 @@ class DefaultSearchPresenter: SearchPresenter {
     }
     
     func fetchPhotos() {
-        self.fetchPhotosUseCase.fetchPhotos(page: 1) {[weak self] photos in
+        if isLoading { return }
+        isLoading = true
+        self.fetchPhotosUseCase.fetchPhotos() {[weak self] photos in
+            self?.isLoading = false
             self?.photoList = photos
             self?.view?.reloadTableView()
+            self?.canMoreLoadPhotos = photos.count > 0
         }
     }
     
     func searchPhotos(keyword: String) {
-        self.searchPhotosUseCase.search(query: keyword, page: 1) {[weak self] photos in
+        isSearchMode = true
+        if isLoading { return }
+        isLoading = true
+        self.searchPhotosUseCase.search(query: keyword) {[weak self] photos in
+            self?.isLoading = false
             self?.photoList = photos
             self?.view?.reloadTableView()
+            self?.canMoreLoadPhotos = photos.count > 0
+        }
+    }
+    
+    func searchNextPage() {
+        if isLoading { return }
+        if !canMoreLoadPhotos { return }
+        isLoading = true
+        if isSearchMode {
+            self.searchPhotosUseCase.searchNextPage() {[weak self] photos in
+                self?.isLoading = false
+                self?.photoList += photos
+                self?.view?.reloadTableView()
+                self?.canMoreLoadPhotos = photos.count > 0
+            }
+        } else {
+            self.fetchPhotosUseCase.fetchPhotosNextPage() {[weak self] photos in
+                self?.isLoading = false
+                self?.photoList += photos
+                self?.view?.reloadTableView()
+                self?.canMoreLoadPhotos = photos.count > 0
+            }
         }
     }
 }
