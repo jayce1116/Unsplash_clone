@@ -12,6 +12,12 @@ class PhotoPageViewController: UIPageViewController, UIPageViewControllerDelegat
 
     var list: [UIViewController] = []
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.delegate = self
+        self.dataSource = self
+    }
+    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
         guard let currentIndex = list.firstIndex(of: viewController) else { return nil }
